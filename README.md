@@ -10,6 +10,36 @@ Below is the Entity-Relationship Diagram (ERD) for Tunify:
 
 ![Tunify ERD](TunifyPlatform/Tunify.png)
 
+## Architecture Overview
+
+### Controllers
+
+The **TunifyPlatform** uses controllers to handle incoming HTTP requests and send responses. Each controller corresponds to a particular entity in the application:
+
+- **UsersController**: Manages user-related actions like fetching, creating, updating, and deleting users.
+- **ArtistsController**: Handles artist-related requests, including getting artist details and managing artist data.
+- **PlaylistsController**: Deals with operations on playlists such as creation, modification, and retrieval.
+- **SongsController**: Manages song-related functionalities, including fetching songs and updating song information.
+
+### Repositories
+
+Repositories are used to abstract data access and provide a clean API for data operations. The following repositories are defined:
+
+- **IUser**: Interface for user data operations.
+- **IArtists**: Interface for artist-related data operations.
+- **IPlayList**: Interface for playlist data operations.
+- **ISong**: Interface for song data operations.
+
+### Services
+
+Services contain the business logic of the application and interact with the repositories to perform data operations:
+
+- **UserServices**: Implements `IUser` and provides methods to manage user data.
+- **ArtistsServices**: Implements `IArtists` to handle artist data management.
+- **PlaylistsServices**: Implements `IPlayList` for playlist-related business logic.
+- **SongServices**: Implements `ISong` to handle song data and logic.
+
+
 ## Entities Overview
 
 ### Users
