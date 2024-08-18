@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TunifyPlatform.Data;
 
@@ -10,9 +11,11 @@ using TunifyPlatform.Data;
 namespace TunifyPlatform.Migrations
 {
     [DbContext(typeof(TunifyDbContext))]
-    partial class TunifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240818062648_AddNavigationPropertiesPlaylistSongs")]
+    partial class AddNavigationPropertiesPlaylistSongs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("AlbumsId");
 
-                    b.ToTable("albums", (string)null);
+                    b.ToTable("albums");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Artists", b =>
@@ -63,59 +66,36 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("ArtistsId");
 
-                    b.ToTable("artists", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            ArtistsId = 1,
-                            Bio = "Lebanese singer",
-                            Name = "Haifa Wehbe"
-                        },
-                        new
-                        {
-                            ArtistsId = 2,
-                            Bio = "Lebanese singer",
-                            Name = "Nancy Ajram"
-                        },
-                        new
-                        {
-                            ArtistsId = 3,
-                            Bio = "Egyptian singer",
-                            Name = "Tamer Hosny"
-                        });
+                    b.ToTable("artists");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.PlaylistSongs", b =>
                 {
+                    b.Property<int>("PlaylistSongsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaylistSongsId"));
+
                     b.Property<int>("Playlist_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistsId")
                         .HasColumnType("int");
 
                     b.Property<int>("Song_Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Playlist_Id", "Song_Id");
+                    b.Property<int>("SongsId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("Song_Id");
+                    b.HasKey("PlaylistSongsId");
 
-                    b.ToTable("playlistSongs", (string)null);
+                    b.HasIndex("PlaylistsId");
 
-                    b.HasData(
-                        new
-                        {
-                            Playlist_Id = 1,
-                            Song_Id = 1
-                        },
-                        new
-                        {
-                            Playlist_Id = 2,
-                            Song_Id = 3
-                        },
-                        new
-                        {
-                            Playlist_Id = 3,
-                            Song_Id = 2
-                        });
+                    b.HasIndex("SongsId");
+
+                    b.ToTable("playlistSongs");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Playlists", b =>
@@ -139,7 +119,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("PlaylistsId");
 
-                    b.ToTable("playlists", (string)null);
+                    b.ToTable("playlists");
 
                     b.HasData(
                         new
@@ -176,7 +156,7 @@ namespace TunifyPlatform.Migrations
                     b.Property<int>("Album_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int>("Artist_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Duration")
@@ -193,16 +173,14 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("SongsId");
 
-                    b.HasIndex("ArtistId");
-
-                    b.ToTable("songs", (string)null);
+                    b.ToTable("songs");
 
                     b.HasData(
                         new
                         {
                             SongsId = 1,
                             Album_Id = 1,
-                            ArtistId = 1,
+                            Artist_Id = 1,
                             Duration = "3:53",
                             Genre = "Pop",
                             Title = "Shape of You"
@@ -211,7 +189,7 @@ namespace TunifyPlatform.Migrations
                         {
                             SongsId = 2,
                             Album_Id = 2,
-                            ArtistId = 2,
+                            Artist_Id = 2,
                             Duration = "4:31",
                             Genre = "Funk",
                             Title = "Uptown Funk"
@@ -220,7 +198,7 @@ namespace TunifyPlatform.Migrations
                         {
                             SongsId = 3,
                             Album_Id = 4,
-                            ArtistId = 3,
+                            Artist_Id = 3,
                             Duration = "2:02",
                             Genre = "Children's Music",
                             Title = "Veggie Dance"
@@ -245,7 +223,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("SubscripionsId");
 
-                    b.ToTable("subscripions", (string)null);
+                    b.ToTable("subscripions");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.User", b =>
@@ -273,7 +251,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
 
                     b.HasData(
                         new
@@ -306,35 +284,19 @@ namespace TunifyPlatform.Migrations
                 {
                     b.HasOne("TunifyPlatform.Models.Playlists", "Playlist")
                         .WithMany("PlaylistSongs")
-                        .HasForeignKey("Playlist_Id")
+                        .HasForeignKey("PlaylistsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TunifyPlatform.Models.Songs", "Song")
                         .WithMany("PlaylistSongs")
-                        .HasForeignKey("Song_Id")
+                        .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Playlist");
 
                     b.Navigation("Song");
-                });
-
-            modelBuilder.Entity("TunifyPlatform.Models.Songs", b =>
-                {
-                    b.HasOne("TunifyPlatform.Models.Artists", "Artist")
-                        .WithMany("Songs")
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artist");
-                });
-
-            modelBuilder.Entity("TunifyPlatform.Models.Artists", b =>
-                {
-                    b.Navigation("Songs");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Playlists", b =>

@@ -78,5 +78,14 @@ namespace TunifyPlatform.Controllers
             await _artists.DeleteArtists(id);
             return NoContent();
         }
+
+        // POST: api/Artists/{artistId}/Songs/{songId}
+        [HttpPost("{artistId}/Songs/{songId}")]
+        public async Task<IActionResult> AddSongToArtist(int artistId, int songId)
+        {
+                await _artists.AddSongToArtist(artistId, songId);
+                return Ok();
+           
+        }
     }
 }

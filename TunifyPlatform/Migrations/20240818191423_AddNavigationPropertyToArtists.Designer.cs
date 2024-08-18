@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TunifyPlatform.Data;
 
@@ -10,9 +11,11 @@ using TunifyPlatform.Data;
 namespace TunifyPlatform.Migrations
 {
     [DbContext(typeof(TunifyDbContext))]
-    partial class TunifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240818191423_AddNavigationPropertyToArtists")]
+    partial class AddNavigationPropertyToArtists
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("AlbumsId");
 
-                    b.ToTable("albums", (string)null);
+                    b.ToTable("albums");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Artists", b =>
@@ -63,7 +66,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("ArtistsId");
 
-                    b.ToTable("artists", (string)null);
+                    b.ToTable("artists");
 
                     b.HasData(
                         new
@@ -98,7 +101,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasIndex("Song_Id");
 
-                    b.ToTable("playlistSongs", (string)null);
+                    b.ToTable("playlistSongs");
 
                     b.HasData(
                         new
@@ -139,7 +142,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("PlaylistsId");
 
-                    b.ToTable("playlists", (string)null);
+                    b.ToTable("playlists");
 
                     b.HasData(
                         new
@@ -195,7 +198,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasIndex("ArtistId");
 
-                    b.ToTable("songs", (string)null);
+                    b.ToTable("songs");
 
                     b.HasData(
                         new
@@ -245,7 +248,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("SubscripionsId");
 
-                    b.ToTable("subscripions", (string)null);
+                    b.ToTable("subscripions");
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.User", b =>
@@ -273,7 +276,7 @@ namespace TunifyPlatform.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
 
                     b.HasData(
                         new
