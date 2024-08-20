@@ -90,3 +90,13 @@ Services contain the business logic of the application and interact with the rep
 - **Artists** create albums, which contain songs.
 - **Songs** belong to albums and can be part of multiple playlists.
 
+## Swagger UI Integration
+
+Swagger UI has been integrated into the **TunifyPlatform** project to provide interactive documentation for the API. This makes it easier to explore and test the various endpoints exposed by the platform.
+
+### Accessing Swagger UI
+
+1. **Start the Application**: Run the application using your preferred method (e.g., `dotnet run`, Visual Studio, etc.).
+
+2. **Navigate to Swagger UI**: Once the application is running, open your web browser and go to the following URL:
+  ` http://localhost:{PORT}/TunifySwagger`
