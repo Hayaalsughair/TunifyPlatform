@@ -1,10 +1,12 @@
 ﻿using Humanizer.Localisation;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Models;
 
 namespace TunifyPlatform.Data
 {
-    public class TunifyDbContext: DbContext
+    public class TunifyDbContext: IdentityDbContext<ApplicationUser>
     {
         public TunifyDbContext(DbContextOptions options) : base(options)
         {
@@ -19,8 +21,10 @@ namespace TunifyPlatform.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<PlaylistSongs>()
-            .HasKey(ps => new { ps.Playlist_Id, ps.Song_Id });
+                 .HasKey(ps => new { ps.Playlist_Id, ps.Song_Id });
 
             modelBuilder.Entity<PlaylistSongs>()
                  .HasOne(ps => ps.Playlist)
@@ -37,6 +41,7 @@ namespace TunifyPlatform.Data
                 .HasMany(a => a.Songs)
                 .WithOne(s => s.Artist)
                 .HasForeignKey(s => s.ArtistId);
+
 
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = 1, UserName="Haya", Email="hayaalsughair@gmail.com", Join_Date = "3-8-2024", Subscription_ID = 1 },
