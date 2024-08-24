@@ -100,3 +100,12 @@ Swagger UI has been integrated into the **TunifyPlatform** project to provide in
 
 2. **Navigate to Swagger UI**: Once the application is running, open your web browser and go to the following URL:
   ` http://localhost:{PORT}/TunifySwagger`
+
+## Implementing Authentication with Identity
+The TunifyPlatform project incorporates authentication features using ASP.NET Core Identity. This includes enabling user registration, login, and logout functionalities:
+
+- **User Registration**: Allows new users to register an account with a username, email, and password.
+- **User Login**: Authenticates users by validating their credentials and granting access to the platform.
+- **User Logout**: Logs users out of the platform, ending their authenticated session.
+
+These features are implemented through the `AccountController` and managed via the `IdentityAccountService` service, which interacts with ASP.NET Core Identity's `UserManager` and `SignInManager` classes.
