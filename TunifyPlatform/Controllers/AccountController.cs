@@ -35,7 +35,7 @@ namespace TunifyPlatform.Controllers
             return BadRequest();
         }
 
-
+        
         [HttpPost("login")]
         public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
         {
