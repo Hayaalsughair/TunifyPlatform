@@ -109,3 +109,13 @@ The TunifyPlatform project incorporates authentication features using ASP.NET Co
 - **User Logout**: Logs users out of the platform, ending their authenticated session.
 
 These features are implemented through the `AccountController` and managed via the `IdentityAccountService` service, which interacts with ASP.NET Core Identity's `UserManager` and `SignInManager` classes.
+
+### Authorization and Claims Integration
+
+In **TunifyPlatform**, I have integrated authorization and claims as follows:
+
+- **Added Roles and Claims**: Configured roles and associated claims in the `TunifyDbContext` to manage permissions.
+- **JWT Authentication**: Implemented JWT token generation and validation in `JwtTokenService` for secure authentication.
+- **Managed User Roles**: Used `IdentityAccountService` for handling user roles and claims during registration and authentication.
+
+This setup enables role-based access control and secure token-based authentication for the application.
